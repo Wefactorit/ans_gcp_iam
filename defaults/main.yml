@@ -6,4 +6,4 @@ role_title: test_title
 project_name: gen-tech-201611
 auth_kind: serviceaccount
 path_to_auth: /tmp/argon-triode-87413-271ef1d97799.json
-permissions: iam.roles.list
+permissions: 'iam.roles.list'

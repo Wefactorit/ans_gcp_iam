@@ -7,10 +7,8 @@
     title: "{{ role_title }}"
     description: My custom role description
     included_permissions:
-      - "{{ item }}"
+      - "{{ permissions }}"
     project: "{{ project_name }}"
     auth_kind: "{{ auth_kind }}"
     service_account_file: "{{ path_to_auth }}"
     state: present
-  with_items:
-    - "{{ permissions }}"
