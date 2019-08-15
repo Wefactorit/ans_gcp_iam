@@ -1,0 +1,16 @@
+---
+# tasks file for mgt_gcp_iam
+
+- name: create a role
+  gcp_iam_role:
+    name: "{{ role_name }}"
+    title: "{{ role_title }}"
+    description: My custom role description
+    included_permissions:
+      - "{{ item }}"
+    project: "{{ project_name }}"
+    auth_kind: "{{ auth_kind }}"
+    service_account_file: "{{ path_to_pem }}"
+    state: present
+  with_items:
+    - "{{ permissions }}"
