@@ -6,7 +6,4 @@ role_title: test_title
 project_name: gen-tech-201611
 auth_kind: serviceaccount
 path_to_pem: /tmp/ansible_provision.pem
-permissions:
-  - iam.roles.list
-  - iam.roles.create
-  - iam.roles.delete
+permissions: iam.roles.list
