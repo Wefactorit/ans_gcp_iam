@@ -1,14 +1,37 @@
 ---
 # tasks file for mgt_gcp_iam
 
-- name: create a role
-  gcp_iam_role:
-    name: "{{ role_name }}"
-    title: "{{ role_title }}"
-    description: My custom role description
-    included_permissions:
-      - "{{ permissions }}"
-    project: "{{ project_name }}"
-    auth_kind: "{{ auth_kind }}"
-    service_account_file: "{{ path_to_auth }}"
-    state: present
+
+# Create or modify
+
+  - name: Create serviceaccount
+    shell: gcloud iam service-accounts create '{{service_name}}' --display-name='{{display_name}}'
+    when: state == 'present'
+    notify: notification_create
+
+  - name: Get service account list
+    shell: gcloud iam service-accounts list --format='{{format}}' --filter="email:{{service_name}}@{{project_name}}.iam.gserviceaccount.com" > /tmp/service_created.txt
+    register: serviceaccount_creation_informations
+    when: state == 'present' or 'view' or 'modify'
+
+  - name: Create key for service accounts
+    shell: 'gcloud iam service-accounts keys create {{ path_to_auth }}/{{service_name}}.json  --iam-account {{service_name}}@{{project_name}}.iam.gserviceaccount.com'
+    when: state == 'present' or 'view' or 'modify'
+
+  - name: Apply privileges to serviceaccount
+    shell: 'gcloud projects add-iam-policy-binding {{project_name}} --member "serviceAccount:{{service_name}}@{{project_name}}.iam.gserviceaccount.com"  --role {{service_account_privileges}} '
+    when: state == 'modify' or 'present'
+
+# Delete
+
+
+  - name: Delete serviceaccount
+    shell: gcloud iam service-accounts delete '{{service_name}}@{{project_name}}.iam.gserviceaccount.com'
+    when:  state == 'absent'
+    notify: notification_delete
+
+
+  - name: Delete serviceaccount binding privileges
+    shell: 'gcloud projects remove-iam-policy-binding {{project_name}}  --member serviceAccount:{{service_name}}@{{project_name}}.iam.gserviceaccount.com  --role roles/owner'
+    when:  state == 'absent'
+    notify: notification_delete

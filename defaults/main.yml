@@ -1,9 +1,15 @@
 ---
 # defaults file for mgt_gcp_iam
 
-role_name: iam_admin
-role_title: test_title
+service_name: k8sdeployer
+display_name: deployer
 project_name: gen-tech-201611
-auth_kind: serviceaccount
-path_to_auth: /tmp/argon-triode-87413-271ef1d97799.json
-permissions: 'iam.roles.list'
+format: yaml
+path_to_auth: /tmp
+state: present
+notification_system: slack
+service_account_privileges: roles/owner
+
+# Slack configuration
+slack_token: TA6NB8WEL/BMA6H7HNV/UJNXEe5cx3hMDsBYEgQawc0V
+slack_channel: '#secops'

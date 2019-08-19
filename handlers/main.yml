@@ -1,2 +1,25 @@
 ---
 # handlers file for mgt_gcp_iam
+- name: notification_create
+  slack:
+    token: '{{slack_token}}'
+    msg: '{{service_name}} Created'
+    channel: '{{slack_channel}}'
+    username: '{{service_name}} Provisionned by Ansible in the project: {{project_name}} '
+    parse: 'none'
+  when: state == 'present' and notification_system == 'slack'
+  tags:
+    - test
+
+
+
+- name: notification_delete
+  slack:
+    token: '{{slack_token}}'
+    msg: '{{service_name}} Deleted'
+    channel: '{{slack_channel}}'
+    username: '{{service_name}} Been remove by Ansible '
+    parse: 'none'
+  when: state == 'absent' and notification_system == 'slack'
+  tags:
+    - test

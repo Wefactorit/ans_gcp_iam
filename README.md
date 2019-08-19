@@ -1,31 +1,36 @@
-Role Name
+mgt_gcp_iam
 =========
 
-A brief description of the role goes here.
+This role it's the first bricks of our GCP user management tools. The purpose of this Ansible it's to help use to industrialize the serviceAccount life cycle.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Ansible > 2.4
+Gcloud 258.0.0
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+* service_name: service_name
+* display_name: Display name of the service account
+* project_name: Project name
+* path_to_auth: Path for generated meta data file for the service account
+* state: The state could be present,modify,view or delete
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+No Dependencies
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+An example of playbook to simplify the service creation
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: mgt_gcp_iam }
 
 License
 -------
@@ -35,4 +40,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Passionate by building performance in the Technologies services
