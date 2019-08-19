@@ -1,9 +1,9 @@
 ---
 # defaults file for mgt_gcp_iam
 
-service_name: k8sdeployer
+service_name: service_name
 display_name: deployer
-project_name: gen-tech-201611
+project_name: project
 format: yaml
 path_to_auth: /tmp
 state: present
@@ -11,5 +11,5 @@ notification_system: slack
 service_account_privileges: roles/owner
 
 # Slack configuration
-slack_token: TA6NB8WEL/BMA6H7HNV/UJNXEe5cx3hMDsBYEgQawc0V
+slack_token: Token/from/Slack
 slack_channel: '#secops'
